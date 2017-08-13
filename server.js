@@ -6,7 +6,7 @@ const bodyParser = require('body-parser')
 
 // Connection URL
 // const url = 'mongodb://localhost:27017/myproject'; // Local
-const url = 'mongodb://kevin:test@ds127341.mlab.com:27341/socksdb'; // Hosted
+const url = 'mongodb://test:test@ds139438.mlab.com:39438/socksdb'; // Hosted
 let database;
 
 // Apparently these two lines let you parse a request body
