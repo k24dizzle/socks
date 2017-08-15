@@ -3,6 +3,13 @@ import re
 from bs4 import BeautifulSoup
 from datetime import datetime
 
+
+def getTeamName(team_id):
+	url = "https://www.athletic.net/CrossCountry/TeamRecords.aspx?SchoolID=" + str(team_id) + "&Records=1000000"
+	r = requests.get(url)
+	soup = BeautifulSoup(r.content, 'html.parser')
+	return soup.find("title").text.split(" ")[0].strip()
+
 # gathers the athlete ids for a given team
 # athletes that have run a 5k, to test 499 is skyline's team id
 # TODO: add females?
@@ -26,6 +33,12 @@ def getAidsFromTeam(team_id):
 		aids.append(aid)
 
 	return aids
+
+def getName(aid):
+	url = "https://www.athletic.net/CrossCountry/Athlete.aspx?AID=" + str(aid) + "#/L0"
+	r = requests.get(url)
+	soup = BeautifulSoup(r.content, 'html.parser')
+	return soup.find('h2').text.split("Cross Country")[0].strip()
 
 # Returns a list of seasons
 # Season is composed of grade, year, list of races
@@ -64,9 +77,9 @@ def get5kTimes(aid):
 			race_obj['name'] = name
 			# ignore PR's and SR's for now
 			race_obj['time'] = time.text.split(' ')[0]
-			race_obj['date'] = date_obj
+			race_obj['date'] = date_obj.strftime("%Y-%m-%d") 
 			season_obj['races'].append(race_obj)
-	seasonList.append(season_obj)
+		seasonList.append(season_obj)
 	return seasonList
 
 # find and return the substring in s which is between the substrings of first and last
@@ -78,5 +91,5 @@ def find_between(s, first, last):
     except ValueError:
         return ""
 
-# my times!
-print get5kTimes(8491866)
+# my times! 
+# print get5kTimes(3652670)
