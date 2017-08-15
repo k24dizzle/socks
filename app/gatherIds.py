@@ -1,9 +1,10 @@
 import requests
 import re
 from bs4 import BeautifulSoup
+from datetime import datetime
 
 # gathers the athlete ids for a given team
-# athletes that have run a 5k
+# athletes that have run a 5k, to test 499 is skyline's team id
 # TODO: add females?
 def getAidsFromTeam(team_id):
 	# the div underwhich all the ind. 5k times are listed under
@@ -26,29 +27,49 @@ def getAidsFromTeam(team_id):
 
 	return aids
 
-# 499 is skyline's team id
-# getAidsFromTeam(499)
-
-
-# TODO finish up this method, stopping because im tired
+# Returns a list of seasons
+# Season is composed of grade, year, list of races
+# Race obj = name of race, date of race, race time
 def get5kTimes(aid):
 	url = "https://www.athletic.net/CrossCountry/Athlete.aspx?AID=" + str(aid) + "#/L0"
 	r = requests.get(url)
 	soup = BeautifulSoup(r.content, 'html.parser')
 	seasons = soup.find_all("div", {"class": "season"})
 
+	seasonList = []
+
 	for season in seasons:
 		seasonId = season['id']
 		year = find_between(seasonId, "S-", "_")
-		# finding the 5k races for that season
+		# the grade is going to before 'th' unless they ran in 3rd grade...
+		pattern = re.compile(r"(\d+)th")
+		season_info = season.find('h5').text
+		grade = pattern.search(season_info).groups()[0]
+
+		# finding the 5k races for that season, todo get all times?
 		header5k = season.find(string=re.compile("^5,000"))
 		races5k = header5k.find_next("table").find_all('tr')
 
-		times = list()
+		season_obj = {}
+		season_obj['grade'] = grade
+		season_obj['year'] = year
+		season_obj['races'] = []
+
 		for race in races5k:
-			print race.find(href=re.compile("^/result/")).text
+			time = race.find(href=re.compile("^/result/"))
+			race_date = time.find_next('td')
+			name = race_date.find_next('td').text
+			date_obj = datetime.strptime(race_date.text + " " + year, '%b %d %Y')
+			race_obj = {}
+			race_obj['name'] = name
+			# ignore PR's and SR's for now
+			race_obj['time'] = time.text.split(' ')[0]
+			race_obj['date'] = date_obj
+			season_obj['races'].append(race_obj)
+	seasonList.append(season_obj)
+	return seasonList
 
-
+# find and return the substring in s which is between the substrings of first and last
 def find_between(s, first, last):
     try:
         start = s.index( first ) + len( first )
@@ -57,4 +78,5 @@ def find_between(s, first, last):
     except ValueError:
         return ""
 
-get5kTimes(88448)
+# my times!
+print get5kTimes(8491866)
