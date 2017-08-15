@@ -57,11 +57,19 @@ def get5kTimes(aid):
 		# the grade is going to before 'th' unless they ran in 3rd grade...
 		pattern = re.compile(r"(\d+)th")
 		season_info = season.find('h5').text
-		grade = pattern.search(season_info).groups()[0]
+		grade = ""
+		try:
+			grade = pattern.search(season_info).groups()[0]
+		except:
+			print "Grade not found for " + aid + "..."
 
 		# finding the 5k races for that season, todo get all times?
-		header5k = season.find(string=re.compile("^5,000"))
-		races5k = header5k.find_next("table").find_all('tr')
+		try:
+			header5k = season.find(string=re.compile("^5,000"))
+			races5k = header5k.find_next("table").find_all('tr')
+		except:
+			races5k = []
+			print "Didn't run a 5k this season: " + year
 
 		season_obj = {}
 		season_obj['grade'] = grade
