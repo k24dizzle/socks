@@ -1,6 +1,3 @@
-// var mjork = document.querySelector('h3');
-// mjork.textContent = 'Logan Cleary';
-
 var ctx = document.getElementById("myChart").getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'bar',

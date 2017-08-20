@@ -9,6 +9,9 @@ const bodyParser = require('body-parser')
 const url = 'mongodb://test:test@ds139438.mlab.com:39438/socksdb'; // Hosted
 let database;
 
+// Where files are located
+app.use(express.static(__dirname + '/public'));
+
 // Apparently these two lines let you parse a request body
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
