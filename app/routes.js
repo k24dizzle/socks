@@ -1,11 +1,27 @@
 var express = require('express');
 var constants = require('./constants')
 var router = express.Router();
+const mongoUtil = require( './mongoUtil' );
 
 
 router.route('/athlete/:aid').get(function(req, res) {
-	console.log(req.params.aid);
-	res.status(200).send(req.params.aid);
+	var athleteId = req.params.aid;
+
+	const _instance = mongoUtil.getDb();
+	var collection = _instance.collection('skyline');
+	collection.findOne({aid: athleteId}, function(err, result) {
+		if (err) {
+			res.status(500).send("Error with the server...");
+			console.log(err);
+			return;
+		}
+		if (result) {
+			res.status(200).send(result);
+		} else {
+			res.status(404).send("Athlete: " + athleteId + " was not found in the db")
+		}
+	});
+
 
 	
 	// var insertDocuments = function(db, callback) {
