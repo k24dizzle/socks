@@ -3,10 +3,10 @@ const app = express()
 const MongoClient = require('mongodb').MongoClient
 const assert = require('assert');
 const bodyParser = require('body-parser')
-const routes = require('./app/routes')
+const routes = require('./server/routes')
 
 
-const mongoUtil = require( './app/mongoUtil' );
+const mongoUtil = require( './server/mongoUtil' );
 
 // Wait for to connect to the db before acting...
 mongoUtil.connectToServer( function( err ) {

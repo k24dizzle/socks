@@ -6,9 +6,10 @@ const mongoUtil = require( './mongoUtil' );
 
 router.route('/athlete/:aid').get(function(req, res) {
 	var athleteId = req.params.aid;
-
 	const _instance = mongoUtil.getDb();
+	// TODO: Change the collection to all athletes?
 	var collection = _instance.collection('skyline');
+	// Find the athlete in the db! If not log the appro error?
 	collection.findOne({aid: athleteId}, function(err, result) {
 		if (err) {
 			res.status(500).send("Error with the server...");
@@ -21,23 +22,6 @@ router.route('/athlete/:aid').get(function(req, res) {
 			res.status(404).send("Athlete: " + athleteId + " was not found in the db")
 		}
 	});
-
-
-	
-	// var insertDocuments = function(db, callback) {
-	//   // Get the documents collection
-	//   var collection = db.collection('documents');
-	//   // Insert some documents
-	//   collection.insertMany([
-	//     {a : 1}, {a : 2}, {a : 3}
-	//   ], function(err, result) {
-	//     assert.equal(err, null);
-	//     assert.equal(3, result.result.n);
-	//     assert.equal(3, result.ops.length);
-	//     console.log("Inserted 3 documents into the collection");
-	//     callback(result);
-	//   });
-	// }
 });
 
 module.exports = router;
