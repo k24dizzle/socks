@@ -23,7 +23,7 @@ mongoUtil.connectToServer( function( err ) {
 	app.post('/test', function(req, res) {
 		console.log("Request made!");
 		console.log(req.body);
-		let collection = database.collection('test');
+		let collection = mongoUtil.getDb().collection('test');
 		collection.insert({name: req.body.name_field});
 	});
 

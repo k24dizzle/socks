@@ -2,5 +2,3 @@
 
 // Declare app level module which depends on views, and components
 var app = angular.module('socks', []);
-
-console.log("Test socks");

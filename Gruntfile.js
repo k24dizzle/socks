@@ -2,7 +2,7 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		concat: {
 			js: {
-				src: ['public/app.js'],
+				src: ['public/app.js', 'public/directives/*.js', 'public/services/*.js'],
 				dest: 'public/build/script.js',
 			},
 		},
