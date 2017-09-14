@@ -4,7 +4,7 @@ from pymongo import MongoClient
 
 client = MongoClient('mongodb://test:test@ds139438.mlab.com:39438/socksdb')
 db = client.socksdb
-skyline = db.skyline
+skyline = db.s499
 
 #inserting all skyline runners
 team_name = athleticScraper.getTeamName(499)

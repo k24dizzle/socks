@@ -1,0 +1,17 @@
+html, label, button {
+	font-family: 'Open Sans', sans-serif;
+}
+
+#title {
+	text-align: center;
+	font-style: italic;
+}
+
+#header {
+	padding: 10px;
+}
+
+#chart {
+	padding: 10px;
+	background-color: #e0ecff;
+}

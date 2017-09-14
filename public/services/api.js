@@ -1,7 +1,8 @@
 'use strict';
 
 app.service('apiService', ['$http', function($http) {
-    this.getStuff = function(aid) {
+    this.getAthleteData = function(aid) {
+    	// TODO: Add error handling here...
         return $http.get('api/athlete/' + aid);
     }
 }]);

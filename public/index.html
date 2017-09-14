@@ -1,22 +1,31 @@
 <html ng-app="socks">
 	<head>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.3/Chart.bundle.min.js"></script>
 		<script type="text/javascript" src="build/script.js"> </script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i" rel="stylesheet">
+		<link rel="stylesheet" href="style/socks.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
 	</head>
 	<body>
-		<h1> HI </h1>
-		<h4> Socks! </h4>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.3/Chart.bundle.min.js"></script>
+		<div body>
+			<div id="header"> 
+				<h2 id="title"> Socks! </h2>
+			    <label for="aid"> Enter your athlete ID: </label>
+			    <input id="aid" type="text" name="aid_field" ng-model="athlete.aid" value="Logan">
+			    <button ng-click="updateAthlete(athlete.aid)" type="button" class="btn btn-default" value="Submit">Submit</button>
+			</div>
+			<div id="info" ng-show="!athleteLoading">
+				<h3> {{ athlete.name }} </h3>
+				<h4> {{ athlete.school }} </h4>
+			</div>
 
-		<form action="/test" method="post">
-		    <label for="name">Enter name: </label>
-		    <input id="name" type="text" name="name_field" value="Logan">
-		    <input type="submit" value="Submit">
-		</form>
-
-		<canvas id="myChart" width="400" height="400"></canvas>
-		<script type="text/javascript" src="test.js"></script>
-		<div tester> {{ test }} </div>
+			<div chart id="chart">
+				<canvas id="myChart" width="200" height="200"></canvas>
+				<script type="text/javascript" src="test.js"></script>
+			</div>
+		</div>
 
 	</body>
 </html>
