@@ -6,8 +6,7 @@ app.directive('raceYear', ['apiService', function(api) {
 			year: '=',
 		},
 		link: function(scope, element, attrs) {
-			console.log("raceyear scope");
-			console.log(scope);
+			
 		},
 		templateUrl: '../templates/raceyear.html'
 	}
