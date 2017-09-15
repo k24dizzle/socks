@@ -92,11 +92,7 @@ app.directive('chart', ['apiService', function(api) {
 				});
 			}
 
-			scope.$watch('athlete.name', function(newValue, oldValue) {
-                if (newValue) {
-                	updateChart();
-                }
-            });
+			scope.$watch('athlete.name', updateChart);
 
 		}
 	}

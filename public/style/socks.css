@@ -15,3 +15,18 @@ html, label, button {
 	padding: 10px;
 	background-color: #e0ecff;
 }
+
+#racebar {
+	padding: 10px;
+	display: flex;
+	height: 40px;
+	justify-content: space-between;
+	vertical-align: center;
+	border-radius: 3px;
+    border: 1px solid #ccc;
+    box-shadow: 0 1px 2px -1px rgba(0,0,0,.2);
+}
+
+#raceyear {
+	padding: 10px;
+}
