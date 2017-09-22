@@ -40,6 +40,17 @@ def getName(aid):
 	soup = BeautifulSoup(r.content, 'html.parser')
 	return soup.find('h2').text.split("Cross Country")[0].strip()
 
+def getSchoolName(aid):
+	url = "https://www.athletic.net/CrossCountry/Athlete.aspx?AID=" + str(aid) + "#/L0"
+	r = requests.get(url)
+	soup = BeautifulSoup(r.content, 'html.parser')
+	seasons = soup.find_all("div", {"class": "season"})
+	if (len(seasons) > 0):
+		return seasons[0].find("div", {"class": "card-header"}).find('a').text
+	else:
+		return ''
+	return
+
 # Returns a list of seasons
 # Season is composed of grade, year, list of races
 # Race obj = name of race, date of race, race time
@@ -72,8 +83,8 @@ def get5kTimes(aid):
 			print "Didn't run a 5k this season: " + year
 
 		season_obj = {}
-		season_obj['grade'] = grade
-		season_obj['year'] = year
+		season_obj['grade'] = grade.encode("utf-8")
+		season_obj['year'] = year.encode("utf-8")
 		season_obj['races'] = []
 
 		for race in races5k:
@@ -82,10 +93,10 @@ def get5kTimes(aid):
 			name = race_date.find_next('td').text
 			date_obj = datetime.strptime(race_date.text + " " + year, '%b %d %Y')
 			race_obj = {}
-			race_obj['name'] = name
+			race_obj['name'] = name.encode("utf-8")
 			# ignore PR's and SR's for now
-			race_obj['time'] = time.text.split(' ')[0]
-			race_obj['date'] = date_obj.strftime("%Y-%m-%d") 
+			race_obj['time'] = time.text.split(' ')[0].encode("utf-8")
+			race_obj['date'] = date_obj.strftime("%Y-%m-%d") .encode("utf-8")
 			season_obj['races'].append(race_obj)
 		seasonList.append(season_obj)
 	return seasonList
