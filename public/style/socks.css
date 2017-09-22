@@ -1,10 +1,11 @@
-html, label, button {
-	font-family: 'Open Sans', sans-serif;
+html, label, button, body {
+	font-family: 'Open Sans', sans-serif !important;
 }
 
 #title {
 	text-align: center;
 	font-style: italic;
+	font-size: 70px;
 }
 
 #header {
@@ -13,14 +14,12 @@ html, label, button {
 
 #chart {
 	padding: 10px;
-	background-color: #e0ecff;
 }
 
 #racebar {
 	padding: 10px;
 	display: flex;
 	height: 40px;
-	justify-content: space-between;
 	vertical-align: center;
 	border-radius: 3px;
     border: 1px solid #ccc;
@@ -29,4 +28,35 @@ html, label, button {
 
 #raceyear {
 	padding: 10px;
+}
+
+#racename {
+	float: left;
+	text-align: left;
+	width: 50%;
+}
+
+#racedate {
+	width: 25%;
+	text-align: center;
+}
+
+#racetime {
+	float:right;
+	width: 25%;
+	text-align: right;
+}
+
+#info {
+	text-align: center;
+}
+
+canvas {
+  height:600px !important;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 20px 0;
 }

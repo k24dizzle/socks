@@ -59,16 +59,17 @@ app.directive('chart', ['apiService', function(api) {
 			let updateChart = function() {
 				let result = getChartData();
 				var chart = angular.element( document.querySelector( '#myChart' ) )[0].getContext('2d');
+				chart.height = 1000;
 				var newChart = new Chart(chart, {
 				   type: 'scatter',
 				   data: {
 				      datasets: [{
-				         label: "Test",
 				         data: result.times,
 				      }]
 				   },
 				   options: {
 				        responsive: true,
+				        maintainAspectRatio: false,
 				        scales: {
 				               yAxes: [{
 				                 ticks: {
@@ -78,7 +79,9 @@ app.directive('chart', ['apiService', function(api) {
 				             },
 				        title: {
 				            display: true,
-				            text: result.school + ": " + result.name
+				            text: result.school + ": " + result.name,
+				            fontSize: 40,
+				            fontFamily: 'Open Sans',
 				        },
 				        tooltips: {
 				            callbacks: {
@@ -87,7 +90,10 @@ app.directive('chart', ['apiService', function(api) {
 				                    return race.date + " " + race.name + " " + race.time;
 				                }
 				            }
-				        } 
+				        },
+				        legend: {
+				            display: false,
+				        }
 				    }
 				});
 			}

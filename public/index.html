@@ -11,23 +11,25 @@
 	<body>
 		<div body>
 			<div id="header"> 
-				<h2 id="title"> Socks! </h2>
+				<h1 id="title"> Socks! </h2>
 			    <label for="aid"> Enter your athlete ID: </label>
 			    <input id="aid" type="text" name="aid_field" ng-model="aid" value="Logan">
 			    <button ng-click="updateAthlete(aid)" type="button" class="btn btn-default" value="Submit">Submit</button>
 			</div>
 
-			<div race-list ng-show="athlete.times"> 
-				<div race-year ng-repeat="year in athlete.times" year="year"> </div>
-			</div>
-			
+			<hr>
+
 			<div id="info" ng-show="!athleteLoading">
-				<h3> {{ athlete.name }} </h3>
-				<h4> {{ athlete.school }} </h4>
+				<h1 id="athleteName"> {{ athlete.name }} </h3>
+				<h2 id="athleteSchool"> {{ athlete.school }} </h4>
+				<div race-list ng-show="athlete.times"> 
+					<div race-year ng-repeat="year in athlete.times" year="year"> </div>
+				</div>
+
 			</div>
 
 			<div chart id="chart" athlete="athlete">
-				<canvas id="myChart" width="200" height="200"></canvas>
+				<canvas id="myChart"></canvas>
 				<script type="text/javascript" src="test.js"></script>
 			</div>
 		</div>
