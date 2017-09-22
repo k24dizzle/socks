@@ -50,7 +50,9 @@ html, label, button, body {
 #info {
 	text-align: center;
 }
-
+.sr {
+	background-color: #f4fef4;
+}
 canvas {
   height:600px !important;
 }
