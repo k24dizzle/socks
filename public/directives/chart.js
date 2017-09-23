@@ -18,11 +18,10 @@ app.directive('chart', ['apiService', function(api) {
 
 			let getChartData = function() {
 				let data = scope.athlete;
-				console.log(data);
 			    var result = {};
 			    result.name = data.name;
 			    result.school = data.school;
-			    var dataset = data.times;
+			    var dataset = (data.times || []);
 			    result.times = [];
 			    var raceCount = 0;
 			    for (var i = dataset.length - 1; i >= 0; i--) {
@@ -60,42 +59,44 @@ app.directive('chart', ['apiService', function(api) {
 				let result = getChartData();
 				var chart = angular.element( document.querySelector( '#myChart' ) )[0].getContext('2d');
 				chart.height = 1000;
-				var newChart = new Chart(chart, {
-				   type: 'scatter',
-				   data: {
-				      datasets: [{
-				         data: result.times,
-				      }]
-				   },
-				   options: {
-				        responsive: true,
-				        maintainAspectRatio: false,
-				        scales: {
-				               yAxes: [{
-				                 ticks: {
-				                   userCallback: function(v) { return seconds_to_format(v) }
-				                 }
-				               }]
-				             },
-				        title: {
-				            display: true,
-				            text: result.school + ": " + result.name,
-				            fontSize: 40,
-				            fontFamily: 'Open Sans',
-				        },
-				        tooltips: {
-				            callbacks: {
-				                label: function(tooltipItem, chartData) {
-				                    var race = chartData.datasets[0].data[tooltipItem['index']];
-				                    return race.date + " " + race.name + " " + race.time;
-				                }
-				            }
-				        },
-				        legend: {
-				            display: false,
-				        }
-				    }
-				});
+				if (result.times.length > 0) {
+					var newChart = new Chart(chart, {
+					   type: 'scatter',
+					   data: {
+					      datasets: [{
+					         data: result.times,
+					      }]
+					   },
+					   options: {
+					        responsive: true,
+					        maintainAspectRatio: false,
+					        scales: {
+					               yAxes: [{
+					                 ticks: {
+					                   userCallback: function(v) { return seconds_to_format(v) }
+					                 }
+					               }]
+					             },
+					        title: {
+					            display: true,
+					            text: result.school + ": " + result.name,
+					            fontSize: 40,
+					            fontFamily: 'Open Sans',
+					        },
+					        tooltips: {
+					            callbacks: {
+					                label: function(tooltipItem, chartData) {
+					                    var race = chartData.datasets[0].data[tooltipItem['index']];
+					                    return race.date + " " + race.name + " " + race.time;
+					                }
+					            }
+					        },
+					        legend: {
+					            display: false,
+					        }
+					    }
+					});
+				}
 			}
 
 			scope.$watch('athlete.name', updateChart);

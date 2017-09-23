@@ -20,8 +20,9 @@
 			<hr>
 
 			<div id="info" ng-show="!athleteLoading">
-				<h1 id="athleteName"> {{ athlete.name }} </h3>
-				<h2 id="athleteSchool"> {{ athlete.school }} </h4>
+				<h1 id="athleteName"> {{ athlete.name }} </h1>
+				<h2 id="athleteSchool"> <span> {{ athlete.school }} </span> </h2>
+				<hr>
 				<div race-list ng-show="athlete.times"> 
 					<div race-year ng-repeat="year in athlete.times" year="year"> </div>
 				</div>
@@ -30,7 +31,6 @@
 
 			<div chart id="chart" athlete="athlete">
 				<canvas id="myChart"></canvas>
-				<script type="text/javascript" src="test.js"></script>
 			</div>
 		</div>
 

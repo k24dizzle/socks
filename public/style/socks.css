@@ -26,6 +26,13 @@ html, label, button, body {
     box-shadow: 0 1px 2px -1px rgba(0,0,0,.2);
 }
 
+#roundbox  {
+	background-color: #fcfcfc;
+	padding: 10px;
+	border-radius: 3px;
+	border: 1px solid #ccc;
+}
+
 #raceyear {
 	padding: 10px;
 }
@@ -50,9 +57,11 @@ html, label, button, body {
 #info {
 	text-align: center;
 }
+
 .sr {
 	background-color: #f4fef4;
 }
+
 canvas {
   height:600px !important;
 }
